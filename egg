@@ -1,0 +1,120 @@
+
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
+local Window = Library.CreateLib("MM2: Egg Hunt | Legend HandlesYT", "Ocean")
+
+local Tab = Window:NewTab("Main-Features")
+
+
+local Tab1 = Window:NewTab("Settings")
+
+local Section = Tab:NewSection("Main-Features")
+
+
+
+
+local CredSection = Tab1:NewSection("Settings")
+
+
+Section:NewToggle("Autofarm Eggs", "AutoFarm", function(Value)
+    a = Value
+        while a do task.wait(2.9)
+        pcall(function()
+for _,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+    if v.ClassName == "MeshPart" and v.Name == "Coin" then
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+        break
+    end
+end
+        end)
+        end
+end)
+
+Section:NewButton("Eggs Esp", "Shows Eggs", function() 
+for _,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+    if v.ClassName == "MeshPart" and v.Name == "Coin" then
+
+local BillboardGui = Instance.new("BillboardGui")
+local TextLabel = Instance.new("TextLabel")
+
+BillboardGui.Name = "Egg"
+BillboardGui.Parent = v
+BillboardGui.AlwaysOnTop = true
+BillboardGui.LightInfluence = 1
+BillboardGui.Size = UDim2.new(0, 50, 0, 50)
+BillboardGui.StudsOffset = Vector3.new(0, 2, 0)
+
+TextLabel.Parent = BillboardGui
+TextLabel.BackgroundColor3 = Color3.new(1, 1, 1)
+TextLabel.BackgroundTransparency = 1
+TextLabel.Size = UDim2.new(1, 0, 1, 0)
+TextLabel.Text = "Egg"
+TextLabel.TextColor3 = Color3.new(2, 0,0) -- color
+TextLabel.TextScaled = true
+end
+end
+
+end)
+
+
+Section:NewToggle("Anti AFK", "Anti AFK", function(state)
+
+end)
+
+
+
+Section:NewSlider("Walkspeed", "Speed", 300, 16, function(s) -- 500 (MaxValue) | 0 (MinValue)
+    getgenv().WalkSpeedValue = (s); --set your desired walkspeed here
+
+local Player = game:service'Players'.LocalPlayer;
+
+Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+
+end)
+
+Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+end)
+
+
+Section:NewToggle("Infinite Jump", "Infinite Jump", function(state)
+
+ if state then
+_G.infinjump = true
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+Mouse.KeyDown:connect(function(k)
+if _G.infinjump then
+if k:byte() == 32 then
+Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+Humanoid:ChangeState("Jumping")
+wait(0.1)
+Humanoid:ChangeState("Seated")
+end
+end
+end)
+local Player = game:GetService("Players").LocalPlayer
+local Mouse = Player:GetMouse()
+    else
+if _G.infinjump == true then
+_G.infinjump = false
+else
+_G.infinjump = true
+end
+end
+            end)
+
+
+
+Section:NewButton("Reset", "Reset", function() 
+     game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end)
+
+CredSection:NewLabel("Made By Legend HandlesYT")
+
+
+CredSection:NewKeybind("Toggle UI", "Toggle The UI", Enum.KeyCode.L, function()
+	Library:ToggleUI()
+end)
